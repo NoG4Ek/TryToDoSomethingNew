@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="570.0" prefWidth="850.0" stylesheets="@sceneGameQuestsStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.GameQuestsController">
+   <children>
+      <AnchorPane layoutX="4.0" prefHeight="570.0" prefWidth="50.0" style="-fx-background-color: #2b2d33;">
+         <effect>
+            <DropShadow height="10.0" offsetX="3.0" offsetY="3.0" radius="4.5" width="10.0" />
+         </effect>
+      </AnchorPane>
+      <JFXTabPane layoutX="57.0" prefHeight="570.0" prefWidth="793.0">
+         <tabs>
+          <Tab text="        История        ">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+          <Tab text="        Активный квест        ">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+            <Tab text="        Чат        ">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
+   </children>
+</AnchorPane>

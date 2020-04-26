@@ -1,0 +1,9 @@
+@font-face {
+    /* Title bar */
+    font-family: "Planet Space";
+    src: url("fonts/Planet Space.ttf");
+}
+
+.text {
+    -fx-font-family: "Planet Space";
+}

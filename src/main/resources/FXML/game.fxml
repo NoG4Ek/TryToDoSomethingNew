@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #363940;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="scenes.GameController">
+   <children>
+      <AnchorPane prefHeight="600.0" prefWidth="150.0" style="-fx-background-color: #1a1c20;">
+         <effect>
+            <DropShadow height="10.0" offsetX="3.0" offsetY="3.0" radius="4.5" width="10.0" />
+         </effect>
+         <children>
+            <JFXButton fx:id="messages" layoutX="40.0" layoutY="100.0" text="Сообщения" textFill="#6d7279" />
+            <JFXButton fx:id="quests" layoutX="41.0" layoutY="140.0" text="Квесты" textFill="#6d7279" />
+            <JFXButton fx:id="rating" layoutX="40.0" layoutY="180.0" text="Топ" textFill="#6d7279" />
+            <JFXButton fx:id="profile" layoutX="40.0" layoutY="60.0" text="Профиль" textFill="#6d7279" />
+            <ImageView fitHeight="40.0" fitWidth="30.0" layoutX="10.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../skin/menu/Profile.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="40.0" fitWidth="30.0" layoutX="10.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../skin/menu/Messages.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="40.0" fitWidth="30.0" layoutX="10.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../skin/menu/Quests.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="40.0" fitWidth="30.0" layoutX="10.0" layoutY="180.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../skin/menu/Rating.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="115.0" fitWidth="150.0" layoutY="400.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <image>
+                  <Image url="@../rangs/Second_rang.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="settings" fitHeight="40.0" fitWidth="30.0" layoutX="10.0" layoutY="565.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../skin/menu/Settings.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Polygon fx:id="animHex" fill="#42396100" layoutX="75.0" layoutY="17.0" points="-8.7, 5.0, 0.0, 10.0, 8.7, 5.0, 8.7, -5.0, 0.0, -10.0, -8.7, -5.0" stroke="#443a63" strokeType="INSIDE" style="-fx-stroke-width: 3;">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Polygon>
+      <Text fill="#6d7279" layoutX="16.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="P      Q">
+         <font>
+            <Font name="Planet Space" size="30.0" />
+         </font>
+      </Text>
+      <AnchorPane layoutX="150.0" prefHeight="30.0" prefWidth="850.0" style="-fx-background-color: #1a1c20;">
+         <effect>
+            <DropShadow height="7.5" offsetX="3.0" offsetY="3.0" radius="3.875" width="10.0" />
+         </effect>
+      </AnchorPane>
+      <AnchorPane fx:id="swappable" layoutX="150.0" layoutY="30.0" prefHeight="570.0" prefWidth="850.0" />
+   </children>
+   <effect>
+      <DropShadow />
+   </effect>
+</AnchorPane>
