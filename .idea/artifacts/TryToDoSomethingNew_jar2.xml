@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="TryToDoSomethingNew:jar2">
+    <output-path>$PROJECT_DIR$/out/artifacts/TryToDoSomethingNew_jar2</output-path>
+    <root id="archive" name="TryToDoSomethingNew.jar">
+      <element id="module-output" name="TryToDoSomethingNew" />
+      <element id="extracted-dir" path="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.19.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

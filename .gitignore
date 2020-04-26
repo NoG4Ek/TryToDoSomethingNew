@@ -1,0 +1,12 @@
+# Project exclude paths
+
+.idea/*.xml
+.idea/*.html
+
+.idea/artifacts
+.idea/libraries
+
+target
+out
+
+*.iml
