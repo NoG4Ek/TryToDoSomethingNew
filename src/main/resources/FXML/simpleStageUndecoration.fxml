@@ -8,9 +8,9 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="decorationRoot" fx:id="decorationRoot" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" pickOnBounds="false" prefHeight="300.0" prefWidth="300.0" snapToPixel="true" styleClass="decoration-resize" stylesheets="@../skin/titleBar/undecorator.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="decorationRoot" fx:id="decorationRoot" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" pickOnBounds="false" prefHeight="300.0" prefWidth="300.0" snapToPixel="true" styleClass="decoration-resize" stylesheets="@../skin/titleBar/undecorator.css" xmlns="http://javafx.com/javafx/8.0.241" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-      <Label fx:id="title" layoutX="67.0" layoutY="129.0" prefHeight="30.0" style="-fx-background-color: #1a1c20;" text="Title bar" AnchorPane.leftAnchor="149.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
+      <Label fx:id="title" layoutX="67.0" layoutY="129.0" prefHeight="30.0" text="Title bar" visible="false" AnchorPane.leftAnchor="149.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
          <effect>
             <DropShadow height="10.0" offsetX="1.0" offsetY="3.0" radius="4.5" width="10.0" />
          </effect>

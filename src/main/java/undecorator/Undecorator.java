@@ -78,9 +78,24 @@ import javafx.util.Duration;
  * Undecorator TODO: Themes, manage Quit (main stage)
  *
  * Bugs (Mac only?): Accelerators + Fullscreen crashes JVM KeyCombination does not respect keyboard's locale. Multi
- * screen: On second screen JFX returns wrong value for MinY (300)
+ * screen: On second screen JFX returns wrong value for MinY (0)
  */
 public class Undecorator extends StackPane {
+
+    public enum Form {
+        SIMPLE("FXML/simpleStageUndecoration.fxml"),
+        STANDARD("FXML/stageUndecoration.fxml");
+
+        private String path;
+
+        Form(String path) {
+            this.path = path;
+        }
+
+        public String getPath(){
+            return path;
+        }
+    }
 
     public int SHADOW_WIDTH = 15;
     public int SAVED_SHADOW_WIDTH = 15;
@@ -146,8 +161,8 @@ public class Undecorator extends StackPane {
         return fullscreenProperty;
     }
 
-    public Undecorator(Stage stage, Region root) {
-        this(stage, root, "FXML/stagedecoration.fxml", StageStyle.UNDECORATED);
+    public Undecorator(Stage stage, Region root, Form form) {
+        this(stage, root, form.getPath(), StageStyle.UNDECORATED);
     }
 
     public Undecorator(Stage stag, Region clientArea, String stageDecorationFxml, StageStyle st) {

@@ -2,10 +2,13 @@ package scenes;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import dataCache.DataCache;
+import database.DBHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -43,7 +46,16 @@ public class GameController {
     private AnchorPane swappable;
 
     @FXML
+    private ImageView ratingImage;
+
+    @FXML
     void initialize() throws IOException {
+        try {
+            DataCache.setUserList(new DBHandler().getUsersList());
+            DataCache.setQuestList(new DBHandler().getQuestsList());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         URL uWelcome = this.getClass().getClassLoader().getResource("FXML/gameWelcome.fxml");
         URL uProfile = this.getClass().getClassLoader().getResource("FXML/gameProfile.fxml");

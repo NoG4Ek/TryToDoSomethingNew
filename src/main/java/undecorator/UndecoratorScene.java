@@ -42,7 +42,7 @@ public class UndecoratorScene extends Scene {
 
     static public final String DEFAULT_STYLESHEET = "skin/titleBar/undecorator.css";
     static public final String DEFAULT_STYLESHEET_UTILITY = "skin/titleBar/undecoratorUtilityStage.css";
-    static public final String DEFAULT_STAGEDECORATION = "FXML/stagedecoration.fxml";
+    static public final String DEFAULT_STAGEDECORATION = "FXML/stageUndecoration.fxml";
     static public final String DEFAULT_STAGEDECORATION_UTILITY = "FXML/stageUtilityDecoration.fxml";
     Undecorator undecorator;
 
@@ -53,7 +53,7 @@ public class UndecoratorScene extends Scene {
      * @param root your UI to be displayed in the Stage
      */
     public UndecoratorScene(Stage stage, Region root) {
-        this(stage, StageStyle.TRANSPARENT, root, DEFAULT_STAGEDECORATION);
+        this(stage, StageStyle.TRANSPARENT, root, Undecorator.Form.SIMPLE.getPath());
     }
 
     /**
@@ -76,7 +76,7 @@ public class UndecoratorScene extends Scene {
             if (stageStyle == StageStyle.UTILITY) {
                 stageDecorationFxml = DEFAULT_STAGEDECORATION_UTILITY;
             } else {
-                stageDecorationFxml = DEFAULT_STAGEDECORATION;
+                stageDecorationFxml = Undecorator.Form.SIMPLE.getPath();
             }
         }
         undecorator = new Undecorator(stage, root, stageDecorationFxml, stageStyle);

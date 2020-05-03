@@ -1,4 +1,4 @@
-package scenes;
+package scenes.gameStageControllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;

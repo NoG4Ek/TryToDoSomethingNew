@@ -1,21 +1,21 @@
 package sceneSwitcher;
 
 import javafx.fxml.FXMLLoader;
-import lang.EncodedControl;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Pair;
 import undecorator.Undecorator;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.cert.X509Certificate;
 import java.util.*;
 
 /**
- * Utility class for controlling navigation between vistas.
+ * Utility class for controlling navigation between scenes.
  *
  * All methods on the navigator are static to facilitate
  * simple access from anywhere in the application.
@@ -30,11 +30,10 @@ public class SceneSwitcher {
 	 * Convenience constants for fxml layouts managed by the navigator.
 	 */
 	private final String MAIN = "FXML/main.fxml";
-	private final Map<String, String> scenes = new HashMap<>();
+	private final Map<String, Pair<String, Pair<Integer, Integer>>> scenes = new HashMap<>();
 	private String lastFxml = "";
 	private String lastLocale = "";
-
-	public static Stage stage = null;
+	public static Stage stage;
 
 	/**
 	 * The main application layout controller.
@@ -45,21 +44,26 @@ public class SceneSwitcher {
 	 * Creates the main application scene.
 	 * @return the created scene.
 	 */
-	public Scene createMainScene(Stage stage) throws IOException {
+	public Scene createMainScene(Stage stage, Undecorator.Form form) throws IOException {
 		SceneSwitcher.stage = stage;
 
-		Undecorator undecorator = new Undecorator(stage, loadMainPane());
+		Undecorator undecorator = new Undecorator(stage, loadMainPane(), form);
 		Scene scene = new Scene(undecorator);
 
 		// Transparent scene and stage
-		scene.setFill(Color.TRANSPARENT);
-		stage.initStyle(StageStyle.TRANSPARENT);
+		try {
+			scene.setFill(Color.TRANSPARENT);
+			stage.initStyle(StageStyle.TRANSPARENT);
+		} catch (java.lang.IllegalStateException ignored){
+
+		}
 
 		return scene;
 	}
 
-	public void addScene(String sceneName, String fileName) {
-		scenes.put(sceneName, fileName);
+	/** Add new sceneName with path and window dimensions */
+	 public void addScene(String sceneName, String fileName, int height, int width) {
+		scenes.put(sceneName, new Pair<>(fileName, new Pair<>(height, width)));
 	}
 
 	/**
@@ -100,31 +104,23 @@ public class SceneSwitcher {
 	 *
 	 * @param scene name to be loaded.
 	 */
-	public void loadScene(String scene, int height, int width) {
-		loadScene(scene, height, width, lastLocale);
-	}
-
-	/**
-	 * Loads scene with specified language.
-	 * @param scene name to be loaded.
-	 * @param language to be loaded from properties file.
-	 */
-	public void loadScene(String scene, int height, int width, String language) {
+	public void loadScene(String scene) {
 		lastFxml = scene;
 		try {
 				URL url = this.getClass().getClassLoader().getResource( getScene(scene));
-				mainController.setScene(FXMLLoader.load(url, getLocalization(language)));
+				mainController.setScene(FXMLLoader.load(Objects.requireNonNull(url)));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		// Set minimum size
-		SceneSwitcher.stage.setWidth(width);
-		SceneSwitcher.stage.setHeight(height);
+		SceneSwitcher.stage.setWidth(scenes.get(scene).getValue().getValue());
+		SceneSwitcher.stage.setHeight(scenes.get(scene).getValue().getKey());
 
 	}
+
 	private String getScene(String sceneName) {
-		String scene = scenes.get(sceneName);
+		String scene = scenes.get(sceneName).getKey();
 		if (scene == null) {
 			throw new NoSuchElementException("Scene " + sceneName + " not found");
 		} else {
@@ -132,26 +128,4 @@ public class SceneSwitcher {
 		}
 	}
 
-	private ResourceBundle getLocalization(String language) {
-		if (language.equals("")) {
-			return null;
-		} else {
-			Locale locale = new Locale(language);
-
-			return ResourceBundle.getBundle( "strings",
-											locale,
-											new EncodedControl("UTF8")
-			);
-		}
-	}
-
-	// TODO: default language from system
-	/**
-	 * Sets used locale in SceneSwither and calls loadScene()
-	 * @param language language code
-	 */
-	public void setLocale(String language) {
-		lastLocale = language;
-		//loadScene(lastFxml, language);
-	}
 }

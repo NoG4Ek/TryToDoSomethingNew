@@ -1,0 +1,45 @@
+/* TabPane */
+.tab{
+    -fx-background-color: rgba(43, 45, 51, 0);
+}
+.tab-header-background{
+    -fx-background-color: rgba(43, 45, 51, 0.9);
+}
+.tab-label{
+    -fx-text-fill: #5a5d63;
+    -fx-font-size: 20pt;
+}
+.tab-main{
+    -fx-pref-height : 60;
+    -fx-max-height : 60;
+}
+
+/* TextField */
+.text-field{
+
+    -fx-background-color: #2b2e33;
+    -fx-prompt-text-fill: #6e6e6e;
+    -fx-text-fill: #d5d5d5;
+    -fx-effect: dropshadow( three-pass-box, black, 4.5, 0, 0, 0);
+}
+.text-field:focused{
+
+    -fx-prompt-text-fill: transparent;
+}
+
+/* CodeButton */
+.codeButton{
+
+    -fx-text-fill: #d5d5d5;
+    -fx-background-color: #443A63;
+    -fx-effect: dropshadow( three-pass-box, black, 7, 0, 0, 0);
+    -fx-text-alignment: center;
+}
+.codeButton:hover{
+
+    -fx-background-color: #4e4370;
+}
+.codeButton:pressed{
+
+    -fx-effect: dropshadow( three-pass-box, black, 2, 0, 0, 0);
+}

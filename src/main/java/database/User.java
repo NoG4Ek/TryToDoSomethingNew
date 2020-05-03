@@ -6,6 +6,18 @@ public class User {
     private String userName;
     private String email;
     private String password;
+    private int rating;
+    private String completedQuests;
+
+    public User(String firstName, String lastName, String userName, String email, String password, int rating, String completedQuests) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+        this.rating = rating;
+        this.completedQuests = completedQuests;
+    }
 
     public User(String firstName, String lastName, String userName, String email, String password) {
         this.firstName = firstName;
@@ -57,5 +69,21 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public String getCompletedQuests() {
+        return completedQuests;
+    }
+
+    public void setCompletedQuests(String completedQuests) {
+        this.completedQuests = completedQuests;
     }
 }
