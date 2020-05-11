@@ -10,6 +10,7 @@ import objects.User;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import sceneSwitcher.SceneSwitcher;
 import javafx.animation.*;
@@ -22,6 +23,7 @@ import scenes.IdentificationController;
 import undecorator.Undecorator;
 
 public class SignInController extends IdentificationController {
+    static Logger logger = Logger.getLogger(SignInController.class.getName());
 
     @FXML
     private ResourceBundle resources;
@@ -58,11 +60,7 @@ public class SignInController extends IdentificationController {
             String passwordText = passwordField.getText().trim();
 
             if (!loginText.equals("") && !passwordText.equals("")) {
-                try {
-                    loginUser(loginText, passwordText);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                loginUser(loginText, passwordText);
             } else {
                 animIncorrectInput(false, loginField, passwordField);
             }
@@ -82,7 +80,7 @@ public class SignInController extends IdentificationController {
 
     }
 
-    private void loginUser(String loginText, String passwordText) throws IOException {
+    private void loginUser(String loginText, String passwordText) {
         System.out.println(loginText);
         DBHandler dbHandler = new DBHandler();
         User user = new User();
@@ -94,7 +92,11 @@ public class SignInController extends IdentificationController {
             initDataCache(currentUser);
             switchScene("game");
             final SceneSwitcher sceneSwitcher = SceneSwitcher.getInstance();
-            sceneSwitcher.createMainScene(SceneSwitcher.stage, Undecorator.Form.STANDARD);
+            try {
+                sceneSwitcher.createMainScene(SceneSwitcher.stage, Undecorator.Form.STANDARD);
+            } catch (IOException e) {
+                logger.info("Problems with create MainScene");
+            }
         } else {
             animIncorrectInput(true, loginField, passwordField);
         }

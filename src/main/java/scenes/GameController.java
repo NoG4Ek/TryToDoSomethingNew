@@ -19,8 +19,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
+import org.apache.log4j.Logger;
 
 public class GameController {
+    static Logger logger = Logger.getLogger(GameController.class.getName());
 
     @FXML
     private ResourceBundle resources;
@@ -76,9 +78,9 @@ public class GameController {
 
         profile.setOnAction(event -> {
             try {
-                swappable.getChildren().setAll(((Node)FXMLLoader.load(Objects.requireNonNull(uProfile))));
+                swappable.getChildren().setAll((Node)FXMLLoader.load(Objects.requireNonNull(uProfile)));
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.info("Problems with loadResource ProfileStage");
             }
 
             activeButton[0].getStyleClass().set(2, "stageButton");
@@ -90,7 +92,7 @@ public class GameController {
             try {
                 swappable.getChildren().setAll(((Node)FXMLLoader.load(Objects.requireNonNull(uMessages))));
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.info("Problems with loadResource MessageStage");
             }
 
             activeButton[0].getStyleClass().set(2, "stageButton");
@@ -102,7 +104,7 @@ public class GameController {
             try {
                 swappable.getChildren().setAll(((Node)FXMLLoader.load(Objects.requireNonNull(uQuests))));
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.info("Problems with loadResource QuestsStage");
             }
 
             activeButton[0].getStyleClass().set(2, "stageButton");
@@ -114,7 +116,7 @@ public class GameController {
             try {
                 swappable.getChildren().setAll(((Node)FXMLLoader.load(Objects.requireNonNull(uRating))));
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.info("Problems with loadResource RatingStage");
             }
 
             activeButton[0].getStyleClass().set(2, "stageButton");

@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Pair;
+import org.apache.log4j.Logger;
 import undecorator.Undecorator;
 
 import java.io.IOException;
@@ -21,6 +22,8 @@ import java.util.*;
  * simple access from anywhere in the application.
  */
 public class SceneSwitcher {
+	static Logger logger = Logger.getLogger(SceneSwitcher.class.getName());
+
 	private static final SceneSwitcher singleton = new SceneSwitcher();
 	private SceneSwitcher() {}
 	public static SceneSwitcher getInstance() {
@@ -111,7 +114,7 @@ public class SceneSwitcher {
 				URL url = this.getClass().getClassLoader().getResource( getScene(scene));
 				mainController.setScene(FXMLLoader.load(Objects.requireNonNull(url)));
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.info("Problems with load scene");
 		}
 
 		// Set minimum size
