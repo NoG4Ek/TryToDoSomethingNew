@@ -1,5 +1,10 @@
-package database;
+package objects;
 
+import java.util.Set;
+
+/**
+ * User class
+ */
 public class User {
     private String firstName;
     private String lastName;
@@ -7,9 +12,9 @@ public class User {
     private String email;
     private String password;
     private int rating;
-    private String completedQuests;
+    private Set<String> completedQuests;
 
-    public User(String firstName, String lastName, String userName, String email, String password, int rating, String completedQuests) {
+    public User(String firstName, String lastName, String userName, String email, String password, int rating, Set<String> completedQuests) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
@@ -79,11 +84,11 @@ public class User {
         this.rating = rating;
     }
 
-    public String getCompletedQuests() {
+    public Set<String> getCompletedQuests() {
         return completedQuests;
     }
 
-    public void setCompletedQuests(String completedQuests) {
+    public void setCompletedQuests(Set<String> completedQuests) {
         this.completedQuests = completedQuests;
     }
 }

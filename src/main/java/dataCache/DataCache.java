@@ -1,13 +1,21 @@
 package dataCache;
 
-import database.Quest;
-import database.User;
+import objects.Quest;
+import gameLogic.RatingHandler;
+import objects.User;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.scene.image.Image;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
+/**
+ * A class for caching data from a data base and for storing property
+ * All functions are static for convenience
+ */
 public class DataCache {
     private static String firstName;
     private static String lastName;
@@ -15,8 +23,27 @@ public class DataCache {
     private static String email;
     private static String password;
     private static int rating;
-    private static String completedQuests;
+    private static Set<String> completedQuests;
     private static List<User> userList;
+
+    private static final SimpleDoubleProperty progress = new SimpleDoubleProperty(rating);
+    private static final ObjectProperty<Image> ratingImage = new SimpleObjectProperty<>();
+
+    public static SimpleDoubleProperty getProgressProperty() {
+        return progress;
+    }
+
+    public static void setProgressProperty(double ratingPr) {
+        DataCache.progress.set(ratingPr);
+    }
+
+    public static ObjectProperty<Image> getRatingImageProperty() {
+        return ratingImage;
+    }
+
+    public static void setRatingImageProperty(String ratingImage) {
+        DataCache.ratingImage.set(new Image(ratingImage));
+    }
 
     private static List<Quest> questList;
 
@@ -65,18 +92,16 @@ public class DataCache {
     }
 
     public static void setRating(int rating) {
+        setRatingImageProperty(RatingHandler.getCurrentRating(rating).getUrl());
+        setProgressProperty(RatingHandler.getProgress(rating));
         DataCache.rating = rating;
     }
 
-    public static String getCompletedQuests() {
+    public static Set<String> getSetCompletedQuests(){
         return completedQuests;
     }
 
-    public static Set<String> getSetCompletedQuests(){
-        return new HashSet<>(Arrays.asList(completedQuests.split(",")));
-    }
-
-    public static void setCompletedQuests(String completedQuests) {
+    public static void setCompletedQuests(Set<String> completedQuests) {
         DataCache.completedQuests = completedQuests;
     }
 

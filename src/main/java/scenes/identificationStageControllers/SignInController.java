@@ -1,19 +1,13 @@
-package scenes;
+package scenes.identificationStageControllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import dataCache.DataCache;
 import database.DBHandler;
-import database.User;
-import javafx.scene.control.Label;
+import objects.User;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Effect;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import org.jetbrains.annotations.NotNull;
@@ -24,9 +18,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
+import scenes.IdentificationController;
 import undecorator.Undecorator;
 
-public class SignInController {
+public class SignInController extends IdentificationController {
 
     @FXML
     private ResourceBundle resources;
@@ -65,14 +60,11 @@ public class SignInController {
             if (!loginText.equals("") && !passwordText.equals("")) {
                 try {
                     loginUser(loginText, passwordText);
-                } catch (SQLException | IOException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             } else {
-                if (loginText.equals(""))
-                    animIncorrectInput(loginField);
-                if (passwordText.equals(""))
-                    animIncorrectInput(passwordField);
+                animIncorrectInput(false, loginField, passwordField);
             }
         });
 
@@ -90,45 +82,32 @@ public class SignInController {
 
     }
 
-    private void loginUser(String loginText, String passwordText) throws SQLException, IOException {
+    private void loginUser(String loginText, String passwordText) throws IOException {
         System.out.println(loginText);
         DBHandler dbHandler = new DBHandler();
         User user = new User();
         user.setUserName(loginText);
         user.setPassword(passwordText);
-        ResultSet resSet = dbHandler.getUser(user);
-        int counter = 0;
+        User currentUser = dbHandler.getUser(user);
 
-        while (resSet.next()){
-            DataCache.setFirstName(resSet.getString("firstname"));
-            DataCache.setLastName(resSet.getString("lastname"));
-            DataCache.setUserName(resSet.getString("username"));
-            DataCache.setEmail(resSet.getString("email"));
-            DataCache.setPassword(resSet.getString("password"));
-            DataCache.setRating(Integer.parseInt(resSet.getString("rating")));
-            DataCache.setCompletedQuests(resSet.getString("completedquests"));
-            counter++;
-        }
-
-        if(counter >= 1){
+        if(currentUser != null){
+            initDataCache(currentUser);
             switchScene("game");
             final SceneSwitcher sceneSwitcher = SceneSwitcher.getInstance();
             sceneSwitcher.createMainScene(SceneSwitcher.stage, Undecorator.Form.STANDARD);
         } else {
-            animIncorrectInput(loginField, passwordField);
+            animIncorrectInput(true, loginField, passwordField);
         }
     }
 
-    private void animIncorrectInput(@NotNull TextField ... textFields) {
-        for (TextField textField: textFields) {
-            textField.setBorder(new Border(new BorderStroke(Color.rgb(110, 7, 38), BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(2))));
-            textField.setEffect(new DropShadow(20, Color.rgb(89, 1, 28)));
-        }
-    }
-
-    private void animIncorrectInputOff(@NotNull TextField textField) {
-        textField.setBorder(Border.EMPTY);
-        textField.setEffect(new DropShadow(4.5, Color.rgb(0, 0, 0)));
+    private void initDataCache(User user){
+            DataCache.setFirstName(user.getFirstName());
+            DataCache.setLastName(user.getLastName());
+            DataCache.setUserName(user.getUserName());
+            DataCache.setEmail(user.getEmail());
+            DataCache.setPassword(user.getPassword());
+            DataCache.setRating(user.getRating());
+            DataCache.setCompletedQuests(user.getCompletedQuests());
     }
 
     private void animHexStart() {

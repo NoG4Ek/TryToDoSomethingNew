@@ -79,6 +79,8 @@ import javafx.util.Duration;
  *
  * Bugs (Mac only?): Accelerators + Fullscreen crashes JVM KeyCombination does not respect keyboard's locale. Multi
  * screen: On second screen JFX returns wrong value for MinY (0)
+ *
+ * @my.modified - add decoration options, removed minimization menu, (will be) deleted resize buttons
  */
 public class Undecorator extends StackPane {
 
@@ -86,7 +88,7 @@ public class Undecorator extends StackPane {
         SIMPLE("FXML/simpleStageUndecoration.fxml"),
         STANDARD("FXML/stageUndecoration.fxml");
 
-        private String path;
+        private final String path;
 
         Form(String path) {
             this.path = path;

@@ -1,10 +1,14 @@
-package scenes;
+package scenes.identificationStageControllers;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import database.DBHandler;
-import database.User;
+import javafx.event.ActionEvent;
+import javafx.event.EventTarget;
+import javafx.scene.control.Alert;
+import objects.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -14,8 +18,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import org.jetbrains.annotations.NotNull;
 import sceneSwitcher.SceneSwitcher;
+import scenes.IdentificationController;
 
-public class SignUpController {
+public class SignUpController extends IdentificationController {
 
     @FXML
     private ResourceBundle resources;
@@ -60,7 +65,6 @@ public class SignUpController {
 
         loginSingUpButton.setOnAction(event -> {
             signUpNewUser();
-            switchScene("signIn");
         });
 
         backToSignInButton.setOnAction((event -> {
@@ -95,50 +99,55 @@ public class SignUpController {
 
     private void signUpNewUser(){
 
-        String firsName = firstNameField.getText();
-        String lastName = lastNameField.getText();
-        String userName = userNameField.getText();
-        String email = emailField.getText();
-        String password = passwordField.getText();
+        String firsName = firstNameField.getText().trim();
+        String lastName = lastNameField.getText().trim();
+        String userName = userNameField.getText().trim();
+        String email = emailField.getText().trim();
+        String password = passwordField.getText().trim();
+        String checkPassword = checkPasswordField.getText().trim();
 
         if (!firsName.equals("") && !lastName.equals("") &&
             !userName.equals("") && !email.equals("") &&
-            !password.equals("") && !checkPasswordField.getText().equals("")) {
-            if (password.equals(checkPasswordField.getText())) {
+            !password.equals("") && !checkPassword.equals("")) {
+            if (password.equals(checkPassword)) {
                 DBHandler dbHandler = new DBHandler();
 
                 User user = new User(firsName, lastName, userName, email, password);
 
-                dbHandler.signUpUser(user);
+                if (!userExist(user)) {
+                    dbHandler.signUpUser(user);
+                    switchScene("signIn");
+                } else {
+                    showAlert();
+                }
             } else {
-                animIncorrectInput(checkPasswordField);
+                animIncorrectInput(true, checkPasswordField);
             }
         } else {
-            if (firsName.equals(""))
-                animIncorrectInput(firstNameField);
-            if (lastName.equals(""))
-                animIncorrectInput(lastNameField);
-            if (userName.equals(""))
-                animIncorrectInput(userNameField);
-            if (email.equals(""))
-                animIncorrectInput(emailField);
-            if (password.equals(""))
-                animIncorrectInput(passwordField);
-            if (checkPasswordField.getText().equals(""))
-                animIncorrectInput(checkPasswordField);
+            animIncorrectInput(false, firstNameField, lastNameField, userNameField,
+                    emailField, passwordField, checkPasswordField);
         }
     }
 
-    private void animIncorrectInput(@NotNull TextField ... textFields) {
-        for (TextField textField: textFields) {
-            textField.setBorder(new Border(new BorderStroke(Color.rgb(110, 7, 38), BorderStrokeStyle.SOLID, new CornerRadii(3), new BorderWidths(2))));
-            textField.setEffect(new DropShadow(20, Color.rgb(89, 1, 28)));
+    private boolean userExist(User user){
+        DBHandler dbHandler = new DBHandler();
+        List<User> allUsers = dbHandler.getUsersList();
+
+        for(User existingUser: allUsers){
+            if (existingUser.getUserName().equals(user.getUserName()) ||
+            existingUser.getEmail().equals(user.getEmail()))
+                return true;
         }
+
+        return false;
     }
 
-    private void animIncorrectInputOff(@NotNull TextField textField) {
-        textField.setBorder(Border.EMPTY);
-        textField.setEffect(new DropShadow(4.5, Color.rgb(0, 0, 0)));
-    }
+    private void showAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Info");
 
+        alert.setContentText("User already exist");
+
+        alert.showAndWait();
+    }
 }

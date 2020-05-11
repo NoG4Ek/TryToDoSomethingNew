@@ -43,6 +43,7 @@ public class SceneSwitcher {
 	/**
 	 * Creates the main application scene.
 	 * @return the created scene.
+	 * @my.modified {@return} decorated scene, considering form
 	 */
 	public Scene createMainScene(Stage stage, Undecorator.Form form) throws IOException {
 		SceneSwitcher.stage = stage;
@@ -50,7 +51,7 @@ public class SceneSwitcher {
 		Undecorator undecorator = new Undecorator(stage, loadMainPane(), form);
 		Scene scene = new Scene(undecorator);
 
-		// Transparent scene and stage
+		// @my.modified Transparent scene and stage
 		try {
 			scene.setFill(Color.TRANSPARENT);
 			stage.initStyle(StageStyle.TRANSPARENT);

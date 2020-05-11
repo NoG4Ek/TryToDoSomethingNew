@@ -4,6 +4,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 
+/**
+ * TODO()
+ */
 public class GameMessagesController {
 
     @FXML

@@ -1,7 +1,10 @@
 package database;
 
+/**
+ * Class of constants for convenient access to database fields
+ */
 public class Const {
-    public static final String USER_TABLE = "users";
+    public static final String USERS_TABLE = "users";
 
     public static final String USERS_ID = "idusers";
     public static final String USERS_FIRSTNAME = "firstname";
@@ -19,6 +22,7 @@ public class Const {
     public static final String QUESTS_QUESTNAME = "questname";
     public static final String QUESTS_DESCRIPTION = "description";
     public static final String QUESTS_CODE = "code";
+    public static final String QUESTS_COST = "cost";
     public static final String QUESTS_MARK = "mark";
 
 }

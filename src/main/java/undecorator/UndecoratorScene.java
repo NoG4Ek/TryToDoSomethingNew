@@ -37,6 +37,7 @@ import javafx.stage.StageStyle;
 /**
  *
  * @author In-SideFX
+ * @my.modified changed css and remove UtilityStage with an opportunity of resize
  */
 public class UndecoratorScene extends Scene {
 

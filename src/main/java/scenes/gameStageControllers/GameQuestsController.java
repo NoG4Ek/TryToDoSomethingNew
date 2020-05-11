@@ -1,21 +1,18 @@
 package scenes.gameStageControllers;
 
-import java.awt.geom.QuadCurve2D;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 
 import dataCache.DataCache;
 import database.DBHandler;
-import database.Quest;
+import objects.Quest;
+import gameLogic.Logic;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
-
-import javax.xml.crypto.Data;
 
 public class GameQuestsController {
 
@@ -39,7 +36,7 @@ public class GameQuestsController {
 
     @FXML
     void initialize() {
-        Quest activeQuest = findActiveQuest();
+        Quest activeQuest = Logic.findActiveQuest();
 
         TQuestName.setText(activeQuest.getQuestName());
         TQuestDescription.setText(activeQuest.getDescription());
@@ -49,22 +46,17 @@ public class GameQuestsController {
                 if (DataCache.getSetCompletedQuests().contains(activeQuest.getQuestName())) {
                     System.out.println("Квест уже выполнен");
                 } else {
-                    new DBHandler().addCompletedQuest(activeQuest.getQuestName());
-                    DataCache.setCompletedQuests(DataCache.getCompletedQuests() + "," + activeQuest.getQuestName());
+                    new DBHandler().addCompletedQuest(activeQuest.getQuestName(), activeQuest.getCost());
+
+                    HashSet<String> updateSetCompletedQuests = new HashSet<>(DataCache.getSetCompletedQuests());
+                    updateSetCompletedQuests.add(activeQuest.getQuestName());
+                    DataCache.setCompletedQuests(updateSetCompletedQuests);
+                    DataCache.setRating(DataCache.getRating() + activeQuest.getCost());
+
                     System.out.println("Поздравляем! Квест выполнен");
                 }
             }
         });
 
-    }
-
-    private Quest findActiveQuest(){
-        Quest activeQuest = Quest.NO_ACTIVE;
-        for (Quest quest: DataCache.getQuestList()){
-            if (quest.getMark().equals("active")){
-                return quest;
-            }
-        }
-        return activeQuest;
     }
 }

@@ -21,6 +21,7 @@ public class MainController {
 	 * Replaces the vista displayed in the vista holder with a new vista.
 	 *
 	 * @param node the vista node to be swapped in.
+	 * @my.modified change Position
 	 */
 	public void setScene(Node node) {
 		sceneHolder.getChildren().setAll(node);

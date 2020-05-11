@@ -7,14 +7,18 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXProgressBar;
 import dataCache.DataCache;
 import database.DBHandler;
+import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Polygon;
+import javafx.scene.shape.*;
+import javafx.util.Duration;
 
 public class GameController {
 
@@ -40,6 +44,9 @@ public class GameController {
     private ImageView settings;
 
     @FXML
+    protected JFXProgressBar progressBar;
+
+    @FXML
     private Polygon animHex;
 
     @FXML
@@ -50,12 +57,14 @@ public class GameController {
 
     @FXML
     void initialize() throws IOException {
-        try {
-            DataCache.setUserList(new DBHandler().getUsersList());
-            DataCache.setQuestList(new DBHandler().getQuestsList());
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        updateDataFromBase();
+
+        animHexStart();
+
+        ratingImage.imageProperty().bind(DataCache.getRatingImageProperty());
+        progressBar.progressProperty().bind(DataCache.getProgressProperty());
+
+        final JFXButton[] activeButton = {profile};
 
         URL uWelcome = this.getClass().getClassLoader().getResource("FXML/gameWelcome.fxml");
         URL uProfile = this.getClass().getClassLoader().getResource("FXML/gameProfile.fxml");
@@ -71,6 +80,10 @@ public class GameController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            activeButton[0].getStyleClass().set(2, "stageButton");
+            profile.getStyleClass().set(2, "stageButtonPressed");
+            activeButton[0] = profile;
         });
 
         messages.setOnAction(event -> {
@@ -79,6 +92,10 @@ public class GameController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            activeButton[0].getStyleClass().set(2, "stageButton");
+            messages.getStyleClass().set(2, "stageButtonPressed");
+            activeButton[0] = messages;
         });
 
         quests.setOnAction(event -> {
@@ -87,6 +104,10 @@ public class GameController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            activeButton[0].getStyleClass().set(2, "stageButton");
+            quests.getStyleClass().set(2, "stageButtonPressed");
+            activeButton[0] = quests;
         });
 
         rating.setOnAction(event -> {
@@ -95,7 +116,29 @@ public class GameController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            activeButton[0].getStyleClass().set(2, "stageButton");
+            rating.getStyleClass().set(2, "stageButtonPressed");
+            activeButton[0] = rating;
         });
 
+        settings.setOnMousePressed(event -> {
+            System.out.println("Настроечки");
+            settings.setImage(new Image("./skin/menu_pressed/Settings_pressed.png"));
+        });
+
+    }
+
+    private void updateDataFromBase(){
+        DataCache.setUserList(new DBHandler().getUsersList());
+        DataCache.setQuestList(new DBHandler().getQuestsList());
+    }
+
+    private void animHexStart() {
+
+        RotateTransition rotate = new RotateTransition(Duration.seconds(5), animHex);
+        rotate.setByAngle(-360f);
+        rotate.setCycleCount(Timeline.INDEFINITE);
+        rotate.play();
     }
 }

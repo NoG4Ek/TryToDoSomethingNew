@@ -1,17 +1,22 @@
-package database;
+package objects;
 
+/**
+ * Quest class
+ */
 public class Quest {
     private String questName;
     private String description;
     private String code;
+    private int cost;
     private String mark;
 
-    public static final Quest NO_ACTIVE = new Quest("", "", "", "");
+    public static final Quest NO_ACTIVE = new Quest("", "", "", 0, "");
 
-    public Quest(String questName, String description, String code, String mark) {
+    public Quest(String questName, String description, String code, int cost, String mark) {
         this.questName = questName;
         this.description = description;
         this.code = code;
+        this.cost = cost;
         this.mark = mark;
     }
 
@@ -37,6 +42,14 @@ public class Quest {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
     public String getMark() {
