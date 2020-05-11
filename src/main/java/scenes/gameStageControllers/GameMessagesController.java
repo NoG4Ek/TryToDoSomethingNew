@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 
 /**
- * TODO()
+ * todо
  */
 public class GameMessagesController {
 
