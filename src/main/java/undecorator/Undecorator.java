@@ -131,7 +131,6 @@ public class Undecorator extends StackPane {
     Rectangle dockFeedback;
     FadeTransition dockFadeTransition;
     Stage dockFeedbackPopup;
-    ParallelTransition parallelTransition;
     Effect dsFocused;
     Effect dsNotFocused;
     UndecoratorController undecoratorController;

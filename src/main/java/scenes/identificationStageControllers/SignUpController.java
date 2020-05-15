@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import database.DBHandler;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventTarget;
 import javafx.scene.control.Alert;
+import javafx.scene.shape.*;
+import javafx.util.Duration;
 import objects.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,7 +18,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Polygon;
 import org.jetbrains.annotations.NotNull;
 import sceneSwitcher.SceneSwitcher;
 import scenes.IdentificationController;
@@ -62,6 +64,7 @@ public class SignUpController extends IdentificationController {
 
     @FXML
     void initialize() {
+        animHexStart();
 
         loginSingUpButton.setOnAction(event -> {
             signUpNewUser();
@@ -149,5 +152,47 @@ public class SignUpController extends IdentificationController {
         alert.setContentText("User already exist");
 
         alert.showAndWait();
+    }
+
+    private void animHexStart() {
+        animHex.setLayoutX(360);
+        animHex.setLayoutY(35);
+
+        Path leftPath = new Path();
+        leftPath.getElements().add(new MoveTo(0,17));
+        leftPath.getElements().add(new LineTo(-250, 17));
+        leftPath.getElements().add(new LineTo(0, 17));
+
+        PathTransition leftPathTransition = new PathTransition(Duration.seconds(10), leftPath, animHex);
+        leftPathTransition.setCycleCount(1);
+
+        Path rightPath = new Path();
+        rightPath.getElements().add(new MoveTo(0,17));
+        rightPath.getElements().add(new LineTo(235, 17));
+        rightPath.getElements().add(new LineTo(0, 17));
+
+        PathTransition rightPathTransition = new PathTransition(Duration.seconds(10), rightPath, animHex);
+        leftPathTransition.setCycleCount(1);
+
+        SequentialTransition leftRightSequentialRotate = new SequentialTransition();
+        leftRightSequentialRotate.getChildren().addAll(leftPathTransition, rightPathTransition);
+        leftRightSequentialRotate.setCycleCount(Timeline.INDEFINITE);
+
+        RotateTransition slowRotateTransitionLeft = new RotateTransition(Duration.seconds(5), animHex);
+        slowRotateTransitionLeft.setByAngle(-360f);
+        slowRotateTransitionLeft.setCycleCount(1);
+
+        RotateTransition slowRotateTransitionRight = new RotateTransition(Duration.seconds(5), animHex);
+        slowRotateTransitionRight.setByAngle(360f);
+        slowRotateTransitionRight.setCycleCount(1);
+
+        SequentialTransition slowSequentialRotate = new SequentialTransition();
+        slowSequentialRotate.getChildren().addAll(slowRotateTransitionLeft, slowRotateTransitionRight);
+        slowSequentialRotate.setCycleCount(Timeline.INDEFINITE);
+
+        ParallelTransition slowParallelTransition = new ParallelTransition();
+        slowParallelTransition.getChildren().addAll(leftRightSequentialRotate, slowSequentialRotate);
+        slowParallelTransition.setCycleCount(Timeline.INDEFINITE);
+        slowParallelTransition.play();
     }
 }
