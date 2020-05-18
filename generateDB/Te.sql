@@ -22,8 +22,15 @@ CREATE TABLE quests (
  
  INSERT INTO users ( idusers, firstname, lastname, username, email, password, rating, completedquests ) 
  VALUES ( null, 'test', 'test', 'test', 'test@mail.ru', 'test', 100, null );
+ UPDATE `test`.`users` SET `completedquests` = '[\"Test\"]' WHERE (`idusers` = '1');
+ 
+ INSERT INTO users ( idusers, firstname, lastname, username, email, password, rating, completedquests ) 
+ VALUES ( null, 'test1', 'test1', 'test1', 'test1@mail.ru', 'test1', 50, null );
+ UPDATE `test`.`users` SET `completedquests` = '[\"Test\"]' WHERE (`idusers` = '2');
+ 
+ INSERT INTO users ( idusers, firstname, lastname, username, email, password, rating, completedquests ) 
+ VALUES ( null, 'test2', 'test2', 'test2', 'test2@mail.ru', 'test2', 25, null );
+ UPDATE `test`.`users` SET `completedquests` = '[\"Test\"]' WHERE (`idusers` = '3');
  
  INSERT INTO quests ( idquests, questname, description, code, cost, mark)
  VALUES ( null, 'test', 'just test', 'test', 100, 'active' );
- 
- UPDATE `test`.`users` SET `completedquests` = '[\"Test\"]' WHERE (`idusers` = '1');

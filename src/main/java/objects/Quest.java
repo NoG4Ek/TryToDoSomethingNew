@@ -1,5 +1,7 @@
 package objects;
 
+import java.util.Objects;
+
 /**
  * Quest class
  */
@@ -58,5 +60,22 @@ public class Quest {
 
     public void setMark(String mark) {
         this.mark = mark;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Quest quest = (Quest) o;
+        return cost == quest.cost &&
+                questName.equals(quest.questName) &&
+                description.equals(quest.description) &&
+                code.equals(quest.code) &&
+                Objects.equals(mark, quest.mark);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(questName, description, code, cost, mark);
     }
 }

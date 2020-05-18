@@ -1,5 +1,7 @@
 package objects;
 
+import java.util.Objects;
+
 /**
  * Rating class
  */
@@ -36,5 +38,20 @@ public class Rating{
 
     public void setNumber(int value) {
         this.number = value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rating rating = (Rating) o;
+        return number == rating.number &&
+                url.equals(rating.url) &&
+                name.equals(rating.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(url, name, number);
     }
 }

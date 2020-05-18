@@ -25,6 +25,7 @@ public class DataCache {
     private static int rating;
     private static Set<String> completedQuests;
     private static List<User> userList;
+    private static List<Quest> questList;
 
     private static final SimpleDoubleProperty progress = new SimpleDoubleProperty(rating);
     private static final ObjectProperty<Image> ratingImage = new SimpleObjectProperty<>();
@@ -44,8 +45,6 @@ public class DataCache {
     public static void setRatingImageProperty(String ratingImage) {
         DataCache.ratingImage.set(new Image(ratingImage));
     }
-
-    private static List<Quest> questList;
 
     public static String getFirstName() {
         return firstName;

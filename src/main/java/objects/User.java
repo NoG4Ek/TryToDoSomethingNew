@@ -1,5 +1,6 @@
 package objects;
 
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -90,5 +91,24 @@ public class User {
 
     public void setCompletedQuests(Set<String> completedQuests) {
         this.completedQuests = completedQuests;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return rating == user.rating &&
+                firstName.equals(user.firstName) &&
+                lastName.equals(user.lastName) &&
+                userName.equals(user.userName) &&
+                email.equals(user.email) &&
+                password.equals(user.password) &&
+                completedQuests.equals(user.completedQuests);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, userName, email, password, rating, completedQuests);
     }
 }
