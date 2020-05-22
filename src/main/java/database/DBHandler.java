@@ -183,7 +183,7 @@ public class  DBHandler extends Configs {
             resSet = prSt.executeQuery();
 
             while (Objects.requireNonNull(resSet).next()){
-                list.add(new Quest(resSet.getString(Const.QUESTS_QUESTNAME), resSet.getString(Const.QUESTS_DESCRIPTION),
+                list.add(new Quest(resSet.getString(Const.QUESTS_NAME), resSet.getString(Const.QUESTS_DESCRIPTION),
                         resSet.getString(Const.QUESTS_CODE), Integer.parseInt(resSet.getString(Const.QUESTS_COST)),
                         resSet.getString(Const.QUESTS_MARK)));
             }

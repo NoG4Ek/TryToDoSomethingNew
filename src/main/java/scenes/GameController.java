@@ -52,7 +52,7 @@ public class GameController {
     private Polygon animHex;
 
     @FXML
-    private AnchorPane swappable;
+    protected AnchorPane swappable;
 
     @FXML
     private ImageView ratingImage;

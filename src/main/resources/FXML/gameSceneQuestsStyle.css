@@ -43,3 +43,16 @@
 
     -fx-effect: dropshadow( three-pass-box, black, 2, 0, 0, 0);
 }
+
+/* QuestCompletedPane */
+.questCompletedPane{
+
+     -fx-effect: dropshadow( three-pass-box, black, 4.5, 0, 0, 0);
+     -fx-background-color: #2b2d33;
+}
+
+.questCompletedTextFlow{
+
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}

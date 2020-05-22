@@ -35,7 +35,6 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
-import javafx.animation.ParallelTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -839,7 +838,7 @@ public class Undecorator extends StackPane {
         } catch (IOException ex) {
             LOGGER.log(Level.SEVERE, "Error while loading confguration flie", ex);
         }
-        LOC = ResourceBundle.getBundle("resources/localization", Locale.getDefault());
+        LOC = ResourceBundle.getBundle("properties/localization", Locale.getDefault());
 
     }
 }

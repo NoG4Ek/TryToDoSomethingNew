@@ -41,6 +41,15 @@
                               <Text fx:id="TQuestDescription" fill="#d5d5d5" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="684.6708984375" />
                            </children>
                         </TextFlow>
+                        <AnchorPane fx:id="questAlertPane" layoutX="530.0" layoutY="425.0" prefHeight="80.0" prefWidth="250.0" styleClass="questCompletedPane">
+                           <children>
+                              <TextFlow layoutY="20.0" prefHeight="60.0" prefWidth="250.0" textAlignment="CENTER">
+                                 <children>
+                                    <Text fx:id="tQuestAlert" fill="#d5d5d5" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="27.6708984375" />
+                                 </children>
+                              </TextFlow>
+                           </children>
+                        </AnchorPane>
                      </children></AnchorPane>
             </content>
           </Tab>
