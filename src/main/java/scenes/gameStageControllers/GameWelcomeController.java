@@ -20,15 +20,20 @@ public class GameWelcomeController {
 
     @FXML
     void initialize() {
+        TWelcome.setText(String.format("Ты уже решил %s %s! Не сдавайся!",
+                DataCache.getSetCompletedQuests().size(), cases()));
+    }
+
+    private String cases(){
+        String questTF = "";
         if (DataCache.getSetCompletedQuests().size() == 1) {
-            TWelcome.setText("Ты уже решил " + DataCache.getSetCompletedQuests().size() + " квест!" +
-                    " Не сдавайся!");
+            questTF = "квест";
         } else
-            if (DataCache.getSetCompletedQuests().size() < 5) {
-                TWelcome.setText("Ты уже решил " + DataCache.getSetCompletedQuests().size() + " квеста!" +
-                        " Не сдавайся!");
-            } else
-                TWelcome.setText("Ты уже решил " + DataCache.getSetCompletedQuests().size() + " квестов!" +
-                        " Не сдавайся!");
+        if (DataCache.getSetCompletedQuests().size() < 5) {
+            questTF = "квеста";
+        } else
+            questTF = "квестов";
+
+        return questTF;
     }
 }
