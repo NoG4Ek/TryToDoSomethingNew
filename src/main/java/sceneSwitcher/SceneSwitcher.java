@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import undecorator.Undecorator;
 
 import java.io.IOException;
+import java.lang.annotation.ElementType;
 import java.net.URL;
 import java.security.cert.X509Certificate;
 import java.util.*;
@@ -33,7 +34,8 @@ public class SceneSwitcher {
 	 * Convenience constants for fxml layouts managed by the navigator.
 	 */
 	private final String MAIN = "FXML/main.fxml";
-	private final Map<String, Pair<String, Pair<Integer, Integer>>> scenes = new HashMap<>();
+	private List<SceneElement> scenes = new ArrayList<>();
+	//private final Map<String, Pair<String, Pair<Integer, Integer>>> scenes = new HashMap<>();
 	private String lastFxml = "";
 	private String lastLocale = "";
 	public static Stage stage;
@@ -67,7 +69,7 @@ public class SceneSwitcher {
 
 	/** Add new sceneName with path and window dimensions */
 	 public void addScene(String sceneName, String fileName, int height, int width) {
-		scenes.put(sceneName, new Pair<>(fileName, new Pair<>(height, width)));
+		scenes.add(new SceneElement(sceneName, fileName, height, width));
 	}
 
 	/**
@@ -111,25 +113,24 @@ public class SceneSwitcher {
 	public void loadScene(String scene) {
 		lastFxml = scene;
 		try {
-				URL url = this.getClass().getClassLoader().getResource( getScene(scene));
+				URL url = this.getClass().getClassLoader().getResource(getScene(scene).getFileName());
 				mainController.setScene(FXMLLoader.load(Objects.requireNonNull(url)));
 		} catch (IOException e) {
 			logger.info("Problems with load scene");
 		}
 
 		// Set minimum size
-		SceneSwitcher.stage.setWidth(scenes.get(scene).getValue().getValue());
-		SceneSwitcher.stage.setHeight(scenes.get(scene).getValue().getKey());
+		SceneSwitcher.stage.setWidth(getScene(scene).getWidth());
+		SceneSwitcher.stage.setHeight(getScene(scene).getHeight());
 
 	}
 
-	private String getScene(String sceneName) {
-		String scene = scenes.get(sceneName).getKey();
-		if (scene == null) {
-			throw new NoSuchElementException("Scene " + sceneName + " not found");
-		} else {
-			return scene;
+	private SceneElement getScene(String sceneName) {
+		for (SceneElement sceneFL : scenes) {
+			if (sceneFL.getSceneName().equals(sceneName)){
+				return sceneFL;
+			}
 		}
+		throw new NoSuchElementException("Scene " + sceneName + " not found");
 	}
-
 }
