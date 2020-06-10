@@ -4,14 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import dataCache.DataCache;
+import gameLogic.DataCache;
 import database.DBHandler;
 import objects.User;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import org.apache.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
 import sceneSwitcher.SceneSwitcher;
 import javafx.animation.*;
 import javafx.fxml.FXML;
@@ -103,13 +99,13 @@ public class SignInController extends IdentificationController {
     }
 
     private void initDataCache(User user){
-            DataCache.setFirstName(user.getFirstName());
-            DataCache.setLastName(user.getLastName());
-            DataCache.setUserName(user.getUserName());
-            DataCache.setEmail(user.getEmail());
-            DataCache.setPassword(user.getPassword());
-            DataCache.setRating(user.getRating());
-            DataCache.setCompletedQuests(user.getCompletedQuests());
+            DataCache.getInstance().setFirstName(user.getFirstName());
+            DataCache.getInstance().setLastName(user.getLastName());
+            DataCache.getInstance().setUserName(user.getUserName());
+            DataCache.getInstance().setEmail(user.getEmail());
+            DataCache.getInstance().setPassword(user.getPassword());
+            DataCache.getInstance().setRating(user.getRating());
+            DataCache.getInstance().setCompletedQuests(user.getCompletedQuests());
     }
 
     private void animHexStart() {

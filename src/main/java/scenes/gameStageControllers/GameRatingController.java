@@ -3,9 +3,8 @@ package scenes.gameStageControllers;
 import java.net.URL;
 import java.util.*;
 
-import dataCache.DataCache;
+import gameLogic.DataCache;
 import database.DBHandler;
-import gameLogic.Logic;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 import javafx.util.Pair;
@@ -35,9 +34,9 @@ public class GameRatingController {
 
     @FXML
     void initialize() {
-        DataCache.setUserList(new DBHandler().getUsersList());
+        DataCache.getInstance().setUserList(new DBHandler().getUsersList());
 
-        List<Pair<String, Integer>> top = Logic.findTopPlayers(5);
+        List<Pair<String, Integer>> top = DataCache.getInstance().findTopPlayers(5);
 
         first.setText("1.    " + top.get(0).getKey());
         second.setText("2.    " + top.get(1).getKey());

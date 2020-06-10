@@ -3,9 +3,8 @@ package scenes.gameStageControllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import dataCache.DataCache;
+import gameLogic.DataCache;
 import gameLogic.RatingHandler;
-import gameLogic.Logic;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 
@@ -55,10 +54,10 @@ public class GameProfileController {
         TPlace.setText("Место в топе:    ");
         TRating.setText("Рейтинг:    ");
 
-        TZUserName.setText(DataCache.getUserName());
-        TZEmail.setText(DataCache.getEmail());
-        TZCompletedQuests.setText(String.valueOf(DataCache.getSetCompletedQuests().size()));
-        TZPlace.setText(String.valueOf(Logic.placeInTop()));
-        TZRating.setText(RatingHandler.getCurrentRating(DataCache.getRating()).getName());
+        TZUserName.setText(DataCache.getInstance().getUserName());
+        TZEmail.setText(DataCache.getInstance().getEmail());
+        TZCompletedQuests.setText(String.valueOf(DataCache.getInstance().getSetCompletedQuests().size()));
+        TZPlace.setText(String.valueOf(DataCache.getInstance().placeInTop()));
+        TZRating.setText(RatingHandler.getCurrentRating(DataCache.getInstance().getRating()).getName());
     }
 }

@@ -2,13 +2,12 @@ package scenes;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXProgressBar;
-import dataCache.DataCache;
+import gameLogic.DataCache;
 import database.DBHandler;
 import javafx.animation.*;
 import javafx.fxml.FXML;
@@ -63,8 +62,8 @@ public class GameController {
 
         animHexStart();
 
-        ratingImage.imageProperty().bind(DataCache.getRatingImageProperty());
-        progressBar.progressProperty().bind(DataCache.getProgressProperty());
+        ratingImage.imageProperty().bind(DataCache.getInstance().getRatingImageProperty());
+        progressBar.progressProperty().bind(DataCache.getInstance().getProgressProperty());
 
         final JFXButton[] activeButton = {profile};
 
@@ -132,8 +131,8 @@ public class GameController {
     }
 
     private void updateDataFromBase(){
-        DataCache.setUserList(new DBHandler().getUsersList());
-        DataCache.setQuestList(new DBHandler().getQuestsList());
+        DataCache.getInstance().setUserList(new DBHandler().getUsersList());
+        DataCache.getInstance().setQuestList(new DBHandler().getQuestsList());
     }
 
     private void animHexStart() {

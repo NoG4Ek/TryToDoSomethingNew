@@ -1,8 +1,7 @@
 import java.util.*;
 
-import dataCache.DataCache;
+import gameLogic.DataCache;
 import database.DBHandler;
-import gameLogic.Logic;
 import gameLogic.RatingHandler;
 import javafx.util.Pair;
 import objects.Quest;
@@ -15,9 +14,9 @@ public class PolyTest {
 
     @BeforeEach
     public void dbSetUp() {
-        DataCache.setUserList(new DBHandler().getUsersList());
-        DataCache.setQuestList(new DBHandler().getQuestsList());
-        DataCache.setUserName("test");
+        DataCache.getInstance().setUserList(new DBHandler().getUsersList());
+        DataCache.getInstance().setQuestList(new DBHandler().getQuestsList());
+        DataCache.getInstance().setUserName("test");
     }
 
     @Test
@@ -25,30 +24,30 @@ public class PolyTest {
         List<Pair<String, Integer>> playersTop = new ArrayList<>();
 
         playersTop.add(new Pair<>("test", 100));
-        Assertions.assertEquals(playersTop, Logic.findTopPlayers(1));
+        Assertions.assertEquals(playersTop, DataCache.getInstance().findTopPlayers(1));
 
         playersTop.add(new Pair<>("test1", 50));
         playersTop.add(new Pair<>("test2", 25));
-        Assertions.assertEquals(playersTop, Logic.findTopPlayers(3));
+        Assertions.assertEquals(playersTop, DataCache.getInstance().findTopPlayers(3));
     }
 
     @Test
     public void findActiveQuest() {
         Quest quest = new Quest("test", "just test", "test", 100, "active");
 
-        Assertions.assertEquals(quest, Logic.findActiveQuest());
+        Assertions.assertEquals(quest, DataCache.getInstance().findActiveQuest());
     }
 
     @Test
     public void placeInTop(){
-        DataCache.setUserName("test");
-        Assertions.assertEquals(1, Logic.placeInTop());
+        DataCache.getInstance().setUserName("test");
+        Assertions.assertEquals(1, DataCache.getInstance().placeInTop());
 
-        DataCache.setUserName("test1");
-        Assertions.assertEquals(2, Logic.placeInTop());
+        DataCache.getInstance().setUserName("test1");
+        Assertions.assertEquals(2, DataCache.getInstance().placeInTop());
 
-        DataCache.setUserName("test2");
-        Assertions.assertEquals(3, Logic.placeInTop());
+        DataCache.getInstance().setUserName("test2");
+        Assertions.assertEquals(3, DataCache.getInstance().placeInTop());
     }
 
     @Test

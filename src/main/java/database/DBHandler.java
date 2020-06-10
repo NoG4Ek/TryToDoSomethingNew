@@ -1,6 +1,6 @@
 package database;
 
-import dataCache.DataCache;
+import gameLogic.DataCache;
 import objects.Quest;
 import objects.User;
 import org.apache.log4j.Logger;
@@ -148,15 +148,15 @@ public class  DBHandler extends Configs {
         try {
             PreparedStatement prSt = DatabaseConnection.getInstance().getConnection().prepareStatement(select);
 
-            int newRating = DataCache.getRating() + questCost;
+            int newRating = DataCache.getInstance().getRating() + questCost;
             prSt.setInt(1, newRating);
 
             JSONArray newCompletedQuests = new JSONArray();
-            newCompletedQuests.addAll(DataCache.getSetCompletedQuests());
+            newCompletedQuests.addAll(DataCache.getInstance().getSetCompletedQuests());
             newCompletedQuests.add(questName);
             prSt.setString(2, newCompletedQuests.toString());
 
-            prSt.setString(3, DataCache.getUserName());
+            prSt.setString(3, DataCache.getInstance().getUserName());
 
             prSt.executeUpdate();
             DatabaseConnection.getInstance().closeConnection();
